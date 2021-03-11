@@ -35,6 +35,10 @@ class Review {
     div.appendChild(p);
     div.appendChild(byAuthor);
     div.appendChild(deleteLink);
+    div.appendChild(document.createElement("br"))
+    div.appendChild(document.createElement("br"))
+    div.appendChild(document.createElement("br"))
+    div.appendChild(document.createElement("br"))
     reviewsDiv.appendChild(div);
     }
 
@@ -134,22 +138,22 @@ class Review {
     static async deleteReview(e) {
       e.preventDefault();
       let id = e.target.dataset.id;
-      const data = await Api.delete(Api.baseUrl + "/reviews/" + id);
+      const data = await Api.delete("/reviews/" + id);
       Review.all = Review.all.filter(function(review){
         return review.id !== data.id;
       })
       Review.renderReviews();
     }
 
-    // static listenforKeyDown() {
-    //   inputSearch().addEventListener("keydown", this.inputFilter)
-    // }
+    static listenforKeyDown() {
+      inputSearch().addEventListener("keydown", this.inputFilter)
+    }
 
-    // static inputFilter() {
-    //   const text = document.querySelector('#search').value 
-    //   const filtered = Review.all.filter(review => this.title.includes(text))
-    //   document.querySelector("#reviews").innerHTML = ""
-      // filtered.forEach(review => review.addToDom())
-    // }    
+    static inputFilter() {
+      const text = document.querySelector('#search').value 
+      const filtered = Review.all.filter(review => review.title.includes(text))
+      document.querySelector("#reviews").innerHTML = ""
+      filtered.forEach(review => review.render())
+    }    
   
 }

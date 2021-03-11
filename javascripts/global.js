@@ -1,5 +1,5 @@
 // Global 
-
+// const inputSearch = document.querySelector("#search")
 // const baseUrl = "http://localhost:3000"
  
 // Node getters
@@ -12,4 +12,4 @@ const authorInput = () => document.getElementById("author");
 const form = () => document.getElementById("form");
 const formLink = () => document.getElementById("form-link");
 const reviewsLink = () => document.getElementById("reviews-link");
-
+const inputSearch = () => document.querySelector("#search")

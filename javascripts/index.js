@@ -37,4 +37,5 @@ document.addEventListener("DOMContentLoaded", function() {
     Review.getReviews();
     formLinkEvent();
     reviewsLinkEvent();
+    Review.listenforKeyDown();
 })
