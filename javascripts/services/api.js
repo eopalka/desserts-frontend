@@ -27,7 +27,7 @@ class Api {
     }
 
     static async delete(path) {
-      let resp = await fetch(path, {
+      let resp = await fetch(Api.baseUrl + path, {
         method: "DELETE",
         headers: Api.headers
       })
