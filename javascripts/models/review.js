@@ -1,5 +1,3 @@
-
-
 class Review {
     static all = []
 
@@ -17,8 +15,15 @@ class Review {
         let span = document.createElement("span")
         let p = document.createElement("p");
         let byAuthor = document.createElement("p");
+        let deleteLink = document.createElement("a");
         let reviewsDiv = document.getElementById("reviews");
-    
+
+
+    deleteLink.dataset.id = this.id
+    deleteLink.setAttribute("href", "#")
+    deleteLink.innerText = "Delete"
+
+    deleteLink.addEventListener("click", Review.deleteReview)
 
     h4.innerText = `Dessert: ${this.title}`;
     span.innerText = `Rating: ${this.score}`;
@@ -29,7 +34,7 @@ class Review {
     div.appendChild(span);
     div.appendChild(p);
     div.appendChild(byAuthor);
-
+    div.appendChild(deleteLink);
     reviewsDiv.appendChild(div);
     }
 
@@ -44,7 +49,6 @@ class Review {
         review.save();
         return review;
     }
-
 
     static createFormCollection(collection) {
         collection.forEach(data => Review.create(data))
@@ -73,7 +77,7 @@ class Review {
             </div>
             <div class="input-field">
             <label for="score">On a scale of 1-10 how would you rate it?</label>
-            <input type="number" name="score" id="score" />
+            <input type="number" name="score" id="score" min="1" max="10" />
           </div>
             <div class="input-field">
             <label for="author">Who are you?</label>
@@ -123,8 +127,29 @@ class Review {
 
     static async getReviews() {
         const data = await Api.get("/reviews");
-
         Review.createFormCollection(data)
         Review.renderReviews();
     }
+
+    static async deleteReview(e) {
+      e.preventDefault();
+      let id = e.target.dataset.id;
+      const data = await Api.delete(Api.baseUrl + "/reviews/" + id);
+      Review.all = Review.all.filter(function(review){
+        return review.id !== data.id;
+      })
+      Review.renderReviews();
+    }
+
+    // static listenforKeyDown() {
+    //   inputSearch().addEventListener("keydown", this.inputFilter)
+    // }
+
+    // static inputFilter() {
+    //   const text = document.querySelector('#search').value 
+    //   const filtered = Review.all.filter(review => this.title.includes(text))
+    //   document.querySelector("#reviews").innerHTML = ""
+      // filtered.forEach(review => review.addToDom())
+    // }    
+  
 }
