@@ -145,8 +145,8 @@ class Review {
       Review.renderReviews();
     }
 
-    static listenforKeyDown() {
-      inputSearch().addEventListener("keydown", this.inputFilter)
+    static listenforKeyUp() {
+      inputSearch().addEventListener("keyup", this.inputFilter)
     }
 
     static inputFilter() {
