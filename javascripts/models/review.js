@@ -11,6 +11,7 @@ class Review {
 
     render() {
         let div = document.createElement("div");
+        let cardDiv = document.createElement("div")
         let h4 = document.createElement("h4");
         let span = document.createElement("span")
         let p = document.createElement("p");
@@ -18,28 +19,37 @@ class Review {
         let deleteLink = document.createElement("a");
         let reviewsDiv = document.getElementById("reviews");
 
+        div.setAttribute("class", "card")
+        cardDiv.setAttribute("class", "card-body")
+        cardDiv.style="align: center;"
+
 
     deleteLink.dataset.id = this.id
     deleteLink.setAttribute("href", "#")
     deleteLink.innerText = "Delete"
-
     deleteLink.addEventListener("click", Review.deleteReview)
 
-    h4.innerText = `Dessert: ${this.title}`;
-    span.innerText = `Rating: ${this.score}`;
-    p.innerText = `Opinion: ${this.comment}`;
-    byAuthor.innerText = `By: ${this.author.name}`;
+    h4.innerText = `${this.title}`;
+    h4.setAttribute("class", "card-title")
 
-    div.appendChild(h4);
-    div.appendChild(span);
-    div.appendChild(p);
-    div.appendChild(byAuthor);
-    div.appendChild(deleteLink);
-    div.appendChild(document.createElement("br"))
-    div.appendChild(document.createElement("br"))
-    div.appendChild(document.createElement("br"))
-    div.appendChild(document.createElement("br"))
+    span.innerText = `${this.score}/10`;
+    span.setAttribute("class", "card-subtitle mb-2 text-muted")
+
+    p.innerText = `${this.comment}`;
+    p.setAttribute("class", "card-text")
+
+    byAuthor.innerText = `By: ${this.author.name}`;
+    byAuthor.setAttribute("class", "card-title")
+
+    cardDiv.appendChild(h4);
+    cardDiv.appendChild(span);
+    cardDiv.appendChild(p);
+    cardDiv.appendChild(byAuthor);
+    cardDiv.appendChild(deleteLink);
+    div.appendChild(cardDiv);
+    div.appendChild(document.createElement("br"));
     reviewsDiv.appendChild(div);
+    reviewsDiv.appendChild(document.createElement("br"));
     }
 
     save() {
@@ -62,8 +72,8 @@ class Review {
 
     static reviewsTemplate() {
         return `
-        <h2>Here is what people are saying:</h2>
-        <div id="reviews"></div>
+        <h2>Here is what people are eating:</h2>
+        <div id="reviews">  </div>
         `;
     }
 
@@ -72,19 +82,19 @@ class Review {
         <h3>Review a dessert:</h3>
           <form id="form">
             <div class="input-field">
-              <label for="title">What did you eat?</label>
+              <label for="title">What did you eat?</label><br>
               <input type="text" name="title" id="title" />
             </div>
             <div class="input-field">
-              <label for="comment">What did you think?</label><br />
+              <label for="comment">What did you think?</label><br>
               <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
             </div>
             <div class="input-field">
-            <label for="score">On a scale of 1-10 how would you rate it?</label>
+            <label for="score">On a scale of 1-10 how would you rate it?</label><br>
             <input type="number" name="score" id="score" min="1" max="10" />
           </div>
             <div class="input-field">
-            <label for="author">Who are you?</label>
+            <label for="author">Who are you?</label><br>
             <input type="text" name="author" id="author" />
           </div>
             <input type="submit" value="Submit" />
