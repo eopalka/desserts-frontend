@@ -9,6 +9,11 @@ class Review {
         this.author = attr.author;
     }
 
+    save() {
+      // not saving into DB, saving in array
+      Review.all.push(this)
+    }
+
     render() {
         let div = document.createElement("div");
         let cardDiv = document.createElement("div")
@@ -52,20 +57,15 @@ class Review {
     reviewsDiv.appendChild(document.createElement("br"));
     }
 
-    save() {
-        // not saving into DB, saving in array
-        Review.all.push(this)
+    static createFromCollection(collection) {
+      collection.forEach(data => Review.create(data))
     }
 
     static create(attr){
-        // creates and saves an object
-        let review = new Review(attr);
-        review.save();
-        return review;
-    }
-
-    static createFormCollection(collection) {
-        collection.forEach(data => Review.create(data))
+      // creates and saves an object
+      let review = new Review(attr); // running constructor
+      review.save();
+      return review;
     }
 
     // REVIEW TEMPLATES
@@ -141,7 +141,7 @@ class Review {
 
     static async getReviews() {
         const data = await Api.get("/reviews");
-        Review.createFormCollection(data)
+        Review.createFromCollection(data)
         Review.renderReviews();
     }
 
