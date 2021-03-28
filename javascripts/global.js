@@ -13,3 +13,7 @@ const form = () => document.getElementById("form");
 const formLink = () => document.getElementById("form-link");
 const reviewsLink = () => document.getElementById("reviews-link");
 const inputSearch = () => document.querySelector("#search")
+
+// function inputSearch() {
+//     return document.querySelector("#search");
+// }

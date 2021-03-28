@@ -20,7 +20,7 @@ class Api {
       let resp = await fetch(Api.baseUrl + path, {
         method: "POST",
         headers: Api.headers,
-        body: JSON.stringify(params)
+        body: JSON.stringify(params) //user input needs to be converted
       })
       let data = await resp.json();
       return data;
