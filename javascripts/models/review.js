@@ -97,7 +97,8 @@ class Review {
             <label for="author">Who are you?</label><br>
             <input type="text" name="author" id="author" />
           </div>
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Submit" /> 
+            /*subit button tries to redirect so use prevent default*/
         </form>
         `;
     }
@@ -110,16 +111,17 @@ class Review {
         form().addEventListener("submit", Review.submitForm);
     }
 
-
     static renderReviews() {
         resetMain();
         main().innerHTML = Review.reviewsTemplate();
-        
-        Review.all.forEach(review => review.render());
+        const sorted = Review.all.sort(function (a, b) {
+          return b.score - a.score;
+        })
+        sorted.forEach(review => review.render());
     }
 
     static submitForm(e) {
-        e.preventDefault();
+        e.preventDefault(); 
         alert("Yummy Yummy");
     
         let strongParams = {
@@ -165,5 +167,8 @@ class Review {
       document.querySelector("#reviews").innerHTML = ""
       filtered.forEach(review => review.render())
     }    
-  
+
+
+
+ 
 }
